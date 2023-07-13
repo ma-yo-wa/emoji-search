@@ -1,8 +1,8 @@
 import { createContext, useState, useEffect } from "react";
-export const EmojiContext = createContext<EmojiContext>({} as any);
+export const EmojiContext = createContext<EmojiContext>({} as EmojiContext);
 
 interface Props {
-  children: JSX.Element;
+  children: React.ReactNode;
 }
 
 interface Emoji {
