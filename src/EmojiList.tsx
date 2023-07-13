@@ -27,7 +27,7 @@ const EmojiList = () => {
           id="emoji-search"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-[400px] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:blue-red-100 focus:border-blue-500 block w-full p-2.5"
+          className="w-[400px] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:blue-red-100 focus:border-blue-500 block p-2.5"
         />
       </div>
       <div className="flex flex-row flex-wrap w-[200px] max-h-[200px] overflow-y-auto overflow-x-auto">
