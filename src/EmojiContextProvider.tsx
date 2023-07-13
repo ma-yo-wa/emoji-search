@@ -1,24 +1,17 @@
-import { createContext, useState, useEffect } from 'react';
-export const EmojiContext = createContext<EmojiContext>({
-  emojiList: [],
-  searchTerm: '',
-  setSearchTerm: function (searchTerm: string): void {
-    throw new Error('Function not implemented.');
-  },
-  hasError: false
-});
+import { createContext, useState, useEffect } from "react";
+export const EmojiContext = createContext<EmojiContext>({} as any);
 
 interface Props {
-	children: JSX.Element
+  children: JSX.Element;
 }
 
 interface Emoji {
-	htmlCode: string;
+  htmlCode: string;
   name: string;
 }
 
 interface EmojiContext {
-  emojiList: Emoji[];
+  emojis: Emoji[];
   searchTerm: string;
   setSearchTerm: (value: string) => void;
   hasError: boolean;
@@ -26,23 +19,27 @@ interface EmojiContext {
 
 export const EmojiContextProvider = (props: Props) => {
   const [emojis, setEmojis] = useState<Emoji[]>([]);
-	const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
   const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
     const fetchEmoji = () => {
-      
-      fetch('https://emojihub.yurace.pro/api/all')
+      fetch("https://emojihub.yurace.pro/api/all")
         .then((response) => response.json())
         .then((result: Emoji[]) => setEmojis(result))
-        .catch(error => setHasError(true));
+        .catch((error) => {
+          console.error(error);
+          setHasError(true);
+        });
     };
 
     fetchEmoji();
   }, []);
 
   return (
-    <EmojiContext.Provider value={{emojiList: emojis, searchTerm, setSearchTerm, hasError}}>
+    <EmojiContext.Provider
+      value={{ emojis: emojis, searchTerm, setSearchTerm, hasError }}
+    >
       {props.children}
     </EmojiContext.Provider>
   );
